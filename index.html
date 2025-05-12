@@ -1,588 +1,342 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>一二三無限公司</title>
-    <style>
-        /* 全局樣式 */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            line-height: 1.6;
-            background-color: #fff;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        h1, h2, h3, h4 {
-            font-weight: 600;
-            margin-top: 1.5em;
-            margin-bottom: 0.5em;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-        }
-        
-        h2 {
-            font-size: 2rem;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 0.5em;
-        }
-        
-        h3 {
-            font-size: 1.5rem;
-        }
-        
-        p {
-            margin-bottom: 1.5em;
-            font-size: 1.1rem;
-        }
-        
-        /* 導航欄 */
-        nav {
-            padding: 20px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-decoration: none;
-            color: #000;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: #000;
-        }
-        
-        /* 英雄區塊 - 修改為文字覆蓋在圖片上 */
-        .hero {
-            position: relative;
-            padding: 0;
-            height: 600px;
-            overflow: hidden;
-        }
-        
-        .hero-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            padding: 80px 0;
-            color: #fff;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6); /* 半透明黑色覆蓋層 */
-            z-index: 1;
-        }
-        
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            max-width: 800px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        .hero p {
-            font-size: 1.3rem;
-            max-width: 800px;
-            margin-bottom: 40px;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-        }
-        
-        /* 按鈕 */
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: #000;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: 500;
-            transition: background-color 0.3s;
-            border: 2px solid #000;
-        }
-        
-        .btn:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid #fff;
-        }
-        
-        .btn-outline:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        /* 服務區塊 */
-        .services {
-            padding: 80px 0;
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 40px;
-        }
-        
-        .service-card {
-            border: 1px solid #eee;
-            border-radius: 4px;
-            padding: 30px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
-        
-        .service-card h3 {
-            margin-top: 0;
-        }
-        
-        /* 產品組合區塊 */
-        .portfolio {
-            padding: 80px 0;
-            background-color: #f8f8f8;
-        }
-        
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .portfolio-item {
-            background-color: #fff;
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            position: relative;
-        }
-        
-        .portfolio-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        
-        .portfolio-content {
-            padding: 20px;
-        }
-        
-        .portfolio-content h3 {
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-        
-        .portfolio-content p {
-            margin-bottom: 15px;
-            color: #666;
-        }
-        
-        .portfolio-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        
-        .tag {
-            padding: 4px 10px;
-            background-color: #f0f0f0;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: #666;
-        }
-        
-        .read-more-btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #000;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .read-more-btn:hover {
-            background-color: #333;
-        }
-        
-        /* 彈窗樣式 */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.7);
-        }
-        
-        .modal-content {
-            background-color: #fff;
-            margin: 10% auto;
-            padding: 30px;
-            border-radius: 8px;
-            max-width: 700px;
-            position: relative;
-            animation: modalFadeIn 0.3s;
-        }
-        
-        @keyframes modalFadeIn {
-            from {opacity: 0; transform: translateY(-20px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 28px;
-            font-weight: bold;
-            color: #aaa;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        
-        .close-modal:hover {
-            color: #000;
-        }
-        
-        .modal-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-        
-        .modal-title {
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-        }
-        
-        .modal-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-        
-        .modal-description {
-            margin-bottom: 20px;
-            line-height: 1.7;
-        }
-        
-        /* 團隊區塊 */
-        .team {
-            padding: 80px 0;
-        }
-        
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 40px;
-            margin-top: 40px;
-        }
-        
-        .team-member {
-            text-align: center;
-        }
-        
-        .team-image {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-        }
-        
-        .team-member h3 {
-            margin-bottom: 5px;
-        }
-        
-        .team-title {
-            color: #666;
-            margin-bottom: 15px;
-        }
-        
-        .team-bio {
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
-        /* 聯絡區塊 */
-        .contact {
-            padding: 80px 0;
-            background-color: #f8f8f8;
-            text-align: center;
-        }
-        
-        .contact-email {
-            margin-top: 40px;
-            font-size: 1.3rem;
-        }
-        
-        .contact-email a {
-            display: inline-block;
-            padding: 15px 30px;
-            background-color: #000;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-        
-        .contact-email a:hover {
-            background-color: #333;
-        }
-        
-        /* 頁腳 */
-        footer {
-            padding: 40px 0;
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .footer-links a {
-            color: #fff;
-            text-decoration: none;
-        }
-        
-        .copyright {
-            font-size: 0.9rem;
-            color: #aaa;
-        }
-        
-        /* 響應式設計 */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .services-grid, .portfolio-grid, .team-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .modal-content {
-                margin: 20% auto;
-                padding: 20px;
-                width: 90%;
-            }
-        }
-    </style>
+    <title>Elysium Capital</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Tangerine:wght@400;700&display=swap">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <nav>
-            <a href="#" class="logo">一二三無限公司ya</a>
-            <div class="nav-links">
-                <a href="#services">服務</a>
-                <a href="#portfolio">產品組合</a>
-                <a href="#team">團隊</a>
-                <a href="#contact">聯絡我們</a>
+    <!-- Typewriter Intro Animation -->
+    <div class="intro-animation">
+        <div class="intro-background"></div>
+        <div class="typewriter-container" id="typewriterContainer">
+            <div class="typewriter-line">
+                <span class="typewriter-text">Elysium Capital</span>
+                <span class="typewriter-cursor"></span>
             </div>
-        </nav>
+            <div class="typewriter-tagline">
+                <span class="typewriter-tagline-text">Where Core Partnerships Fuel Ecosystem Growth</span>
+                <span class="typewriter-tagline-cursor"></span>
+            </div>
+        </div>
     </div>
-    
+
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <div class="logo-icon"></div>
+                    <div class="logo-text">
+                        <h1>Elysium Capital</h1>
+                        <p class="logo-subtitle">Deep-Tech Focused Venture Capital Fund</p>
+                    </div>
+                </a>
+                <div class="nav-links">
+                    <a href="#our-story">Our Story</a>
+                    <a href="#our-approach">Our Approach</a>
+                    <a href="#focus-areas">Focus Areas</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <button class="mobile-menu-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </nav>
+        </div>
+    </header>
+
     <section class="hero">
-        <!-- 背景圖片 -->
-        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hero Image" class="hero-image">
-        
-        <!-- 半透明覆蓋層 -->
-        <div class="hero-overlay"></div>
-        
-        <!-- 內容 -->
+        <div class="hero-bg"></div>
         <div class="container">
             <div class="hero-content">
-                <h1>我們是專注於科技創新的公司。</h1>
-                <p>科技是推動全球進步的動力，是點燃變革的催化劑。我們與行業領先企業的獨特關係，使我們能夠幫助客戶把握機遇並應對挑戰。</p>
+                <p class="hero-subtitle">Elysium Capital</p>
+                <h1 id="heroTitle">
+                    <!-- 標題將由JavaScript動態生成 -->
+                </h1>
+                <p class="hero-description" id="heroDescription">
+                    <!-- 描述將由JavaScript動態生成 -->
+                </p>
+                <div class="hero-cta">
+                    <a href="#our-story" class="btn btn-primary">Our Story</a>
+                    <a href="#contact" class="btn btn-outline">Contact Us</a>
+                </div>
             </div>
         </div>
+        <div class="scroll-indicator">
+            <p class="scroll-text">Scroll Down</p>
+            <svg class="scroll-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </div>
     </section>
-    
-    <section id="services" class="services">
+
+    <!-- Our Story 部分 -->
+    <section id="our-story" class="our-story white-section">
         <div class="container">
-            <h2>我們的服務</h2>
-            <p>我們提供全方位的服務，幫助企業在數位時代取得成功。</p>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <h3>策略諮詢</h3>
-                    <p>我們提供深入的市場分析和策略規劃，幫助您制定明確的業務目標和發展路徑。</p>
-                    <ul>
-                        <li>市場分析與競爭情報</li>
-                        <li>業務模式創新</li>
-                        <li>數位轉型策略</li>
-                    </ul>
-                </div>
+            <div class="reveal">
+                <p class="section-title">Our Story</p>
+                <h2 class="section-heading">Next Generation Technologies Ecosystem</h2>
                 
-                <div class="service-card">
-                    <h3>技術開發</h3>
-                    <p>我們的技術團隊擁有豐富的經驗，能夠為您提供高品質的軟體開發服務。</p>
-                    <ul>
-                        <li>客製化軟體開發</li>
-                        <li>移動應用程式開發</li>
-                        <li>系統整合與API開發</li>
-                    </ul>
-                </div>
-                
-                <div class="service-card">
-                    <h3>投資合作</h3>
-                    <p>我們投資於有潛力的科技創新項目，並提供資源和專業知識支持其成長。</p>
-                    <ul>
-                        <li>早期階段投資</li>
-                        <li>成長階段融資</li>
-                        <li>策略性合作夥伴關係</li>
-                    </ul>
+                <!-- 故事模組網格佈局 -->
+                <div class="story-grid">
+                    <!-- 模組 1 -->
+                    <div class="story-module reveal">
+                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Visionary Roots" class="story-module-image">
+                        <div class="story-module-overlay"></div>
+                        <div class="story-module-content">
+                            <div class="story-module-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            </div>
+                            <h3 class="story-module-title">Visionary Roots</h3>
+                            <p class="story-module-text">Founded by industry veterans with decades of combined experience, Elysium Capital was born to support emerging tech entrepreneurs with genuine understanding and strategic guidance.</p>
+                            <a href="#" class="story-module-link">
+                                Learn More
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- 模組 2 -->
+                    <div class="story-module reveal">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Empowering Next Gen" class="story-module-image">
+                        <div class="story-module-overlay"></div>
+                        <div class="story-module-content">
+                            <div class="story-module-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            </div>
+                            <h3 class="story-module-title">Empowering Next Gen</h3>
+                            <p class="story-module-text">We empower talented professionals with aligned visions, creating a dynamic team dedicated to mutual growth with our portfolio startups in the tech ecosystem.</p>
+                            <a href="#" class="story-module-link">
+                                Learn More
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- 模組 3 -->
+                    <div class="story-module reveal">
+                        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Beyond Capital" class="story-module-image">
+                        <div class="story-module-overlay"></div>
+                        <div class="story-module-content">
+                            <div class="story-module-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                            </div>
+                            <h3 class="story-module-title">Beyond Capital</h3>
+                            <p class="story-module-text">Our hands-on approach delivers more than funding - we provide mentorship, strategic direction, and network access, prioritizing enduring partnerships and collaborative innovation.</p>
+                            <a href="#" class="story-module-link">
+                                Learn More
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- 模組 4 -->
+                    <div class="story-module reveal">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Global Gateway" class="story-module-image">
+                        <div class="story-module-overlay"></div>
+                        <div class="story-module-content">
+                            <div class="story-module-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            </div>
+                            <h3 class="story-module-title">Global Gateway</h3>
+                            <p class="story-module-text">Positioned at the nexus of Taiwan's hardware ecosystem and global markets, we serve as a platform for deep-tech startups to flourish and transform future technologies.</p>
+                            <a href="#" class="story-module-link">
+                                Learn More
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <section id="portfolio" class="portfolio">
+
+    <section id="our-approach" class="our-approach">
         <div class="container">
-            <h2>產品組合</h2>
-            <p>我們投資並支持各種創新科技公司，以下是我們的部分合作夥伴。</p>
+            <div class="reveal">
+                <p class="section-title">Our Approach</p>
+                <h2 class="section-heading">Three-Step Value Creation</h2>
+                <p class="section-intro">Our approach to creating value for portfolio companies follows a strategic three-step process.</p>
+            </div>
             
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Portfolio Item" class="portfolio-image">
-                    <div class="portfolio-content">
-                        <h3>智能數據分析平台</h3>
-                        <p>提供企業級數據分析和視覺化解決方案，幫助企業從數據中獲取洞察。</p>
-                        <div class="portfolio-tags">
-                            <span class="tag">人工智能</span>
-                            <span class="tag">數據分析</span>
-                            <span class="tag">企業服務</span>
-                        </div>
-                        <button class="read-more-btn" onclick="openModal('modal1')">閱讀更多</button>
+            <div class="approach-steps reveal">
+                <div class="approach-step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Investment</h3>
+                        <p class="step-description">We invest in global semiconductor hardware and deep tech startups which we could provide differentiated value to. Our investment focus is on companies developing foundational technologies that will enable the next generation of AI hardware infrastructure, including breakthroughs in semiconductor design, materials science, and computing architectures.</p>
                     </div>
                 </div>
                 
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Portfolio Item" class="portfolio-image">
-                    <div class="portfolio-content">
-                        <h3>智能家居系統</h3>
-                        <p>整合家庭設備的智能控制系統，提供安全、舒適和節能的生活體驗。</p>
-                        <div class="portfolio-tags">
-                            <span class="tag">物聯網</span>
-                            <span class="tag">消費電子</span>
-                            <span class="tag">智能家居</span>
-                        </div>
-                        <button class="read-more-btn" onclick="openModal('modal2')">閱讀更多</button>
+                <div class="approach-step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Acceleration</h3>
+                        <p class="step-description">At Elysium Capital, we've developed a unique approach to early-stage investment that leverages Taiwan's hardware expertise while providing global market access. Our cross-border integration model creates a powerful ecosystem for deep-tech startups to thrive. We provide hands-on support to accelerate development and reduce execution risk.</p>
                     </div>
                 </div>
                 
-                <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Portfolio Item" class="portfolio-image">
-                    <div class="portfolio-content">
-                        <h3>雲端協作平台</h3>
-                        <p>為企業提供安全、高效的雲端協作解決方案，支持遠程工作和團隊協作。</p>
-                        <div class="portfolio-tags">
-                            <span class="tag">雲端服務</span>
-                            <span class="tag">企業服務</span>
-                            <span class="tag">協作工具</span>
-                        </div>
-                        <button class="read-more-btn" onclick="openModal('modal3')">閱讀更多</button>
+                <div class="approach-step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Exit Strategy</h3>
+                        <p class="step-description">We bridge the potential business partners and buyers within our network to create optimal exit opportunities for our portfolio companies. Our extensive connections across Asia, Europe, and North America allow us to identify strategic acquirers who can provide not just financial returns, but also the right environment for technologies and teams to continue thriving.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <!-- 彈窗 -->
+
+    <section id="focus-areas" class="focus-areas white-section">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-title">Focus Areas</p>
+                <h2 class="section-heading">Strategic Investment Focus</h2>
+                <p class="section-intro">We invest in and support innovative technology companies across our strategic focus areas.</p>
+            </div>
+            
+            <div class="focus-grid reveal">
+                <div class="focus-card">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Computing Power" class="focus-image">
+                    <div class="focus-content">
+                        <h3 class="focus-title">Computing Power</h3>
+                        <p class="focus-description">Domain-Specific AI Inference is poised to grow exponentially, supported by the increasing maturity of the ecosystem.</p>
+                        <div class="focus-tags">
+                            <span class="tag">Artificial Intelligence</span>
+                            <span class="tag">Data Analytics</span>
+                            <span class="tag">Enterprise Solutions</span>
+                        </div>
+                        <button class="focus-btn" onclick="openModal('modal1')">Read More</button>
+                    </div>
+                </div>
+                
+                <div class="focus-card">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Data Transmission" class="focus-image">
+                    <div class="focus-content">
+                        <h3 class="focus-title">Data Transmission</h3>
+                        <p class="focus-description">With rapid advancement of AI, Data Transmission efficiency remains a challenge.</p>
+                        <div class="focus-tags">
+                            <span class="tag">IoT</span>
+                            <span class="tag">Consumer Electronics</span>
+                            <span class="tag">Smart Home</span>
+                        </div>
+                        <button class="focus-btn" onclick="openModal('modal2')">Read More</button>
+                    </div>
+                </div>
+                
+                <div class="focus-card">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Physical Intelligence" class="focus-image">
+                    <div class="focus-content">
+                        <h3 class="focus-title">Physical Intelligence</h3>
+                        <p class="focus-description">A significant rise in Physical Intelligence is foreseeable, driven by more powerful computing unit and efficient AI model.</p>
+                        <div class="focus-tags">
+                            <span class="tag">Cloud Services</span>
+                            <span class="tag">Enterprise Solutions</span>
+                            <span class="tag">Collaboration Tools</span>
+                        </div>
+                        <button class="focus-btn" onclick="openModal('modal3')">Read More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-content reveal">
+                <p class="section-title">Contact Us</p>
+                <h2 class="section-heading">Get In Touch</h2>
+                <p class="contact-description">Whether you're seeking collaboration, investment opportunities, or want to learn more about our services, we welcome your contact.</p>
+                
+                <a href="mailto:contact@elysiumcapital.com" class="contact-btn">Email Us</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info-container">
+                    <div class="footer-logo">
+                        <div class="footer-logo-text">Elysium Capital</div>
+                    </div>
+                    <p class="footer-info">Deep-tech and Semi hardware focused VC Fund bridging today's resources to tomorrow's innovation.</p>
+                </div>
+                
+                <div class="footer-links-container">
+                    <div class="footer-links-column">
+                        <h4>Company</h4>
+                        <ul class="footer-links">
+                            <li><a href="#our-story">Our Story</a></li>
+                            <li><a href="#our-approach">Our Approach</a></li>
+                            <li><a href="#focus-areas">Focus Areas</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-links-column">
+                        <h4>Legal</h4>
+                        <ul class="footer-links">
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-links-column">
+                        <h4>Contact</h4>
+                        <ul class="footer-links">
+                            <li><a href="mailto:contact@elysiumcapital.com">Email Us</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Support</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">© 2025 Elysium Capital. All Rights Reserved.</p>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
     <div id="modal1" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('modal1')">&times;</span>
-            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Portfolio Item" class="modal-image">
-            <h2 class="modal-title">智能數據分析平台</h2>
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Computing Power" class="modal-image">
+            <h2 class="modal-title">Computing Power</h2>
             <div class="modal-tags">
-                <span class="tag">人工智能</span>
-                <span class="tag">數據分析</span>
-                <span class="tag">企業服務</span>
+                <span class="tag">Artificial Intelligence</span>
+                <span class="tag">Data Analytics</span>
+                <span class="tag">Enterprise Solutions</span>
             </div>
             <div class="modal-description">
-                <p>我們的智能數據分析平台是一個全面的企業級解決方案，旨在幫助企業從海量數據中提取有價值的洞察。該平台結合了先進的人工智能和機器學習技術，能夠處理結構化和非結構化數據，並提供直觀的視覺化展示。</p>
+                <p>Our intelligent data analytics platform is a comprehensive enterprise-grade solution designed to help businesses extract valuable insights from massive amounts of data. The platform combines advanced artificial intelligence and machine learning technologies to process structured and unstructured data and provide intuitive visualization.</p>
                 
-                <p>主要功能包括：</p>
+                <p>Key features include:</p>
                 <ul>
-                    <li><strong>數據整合：</strong>從多個來源收集和整合數據，包括企業內部系統、雲端服務和第三方應用。</li>
-                    <li><strong>自動化分析：</strong>使用機器學習算法自動識別數據中的模式和趨勢，減少手動分析的工作量。</li>
-                    <li><strong>預測分析：</strong>基於歷史數據預測未來趨勢，幫助企業做出更明智的決策。</li>
-                    <li><strong>互動式儀表板：</strong>提供可自定義的互動式儀表板，使用戶能夠直觀地理解和探索數據。</li>
-                    <li><strong>報告生成：</strong>自動生成詳細的分析報告，支持多種格式和分享方式。</li>
+                    <li><strong>Data Integration:</strong> Collect and integrate data from multiple sources, including internal enterprise systems, cloud services, and third-party applications.</li>
+                    <li><strong>Automated Analysis:</strong> Use machine learning algorithms to automatically identify patterns and trends in data, reducing manual analysis workload.</li>
+                    <li><strong>Predictive Analytics:</strong> Predict future trends based on historical data, helping businesses make more informed decisions.</li>
+                    <li><strong>Interactive Dashboards:</strong> Provide customizable interactive dashboards that allow users to intuitively understand and explore data.</li>
+                    <li><strong>Report Generation:</strong> Automatically generate detailed analysis reports, supporting multiple formats and sharing methods.</li>
                 </ul>
                 
-                <p>我們的平台已經幫助多家企業提高了數據分析效率，降低了運營成本，並發現了新的業務機會。無論是小型企業還是大型企業，我們的解決方案都能夠根據其特定需求進行定制，提供最適合的數據分析工具。</p>
+                <p>Our platform has helped numerous businesses improve data analysis efficiency, reduce operational costs, and discover new business opportunities. Whether for small businesses or large enterprises, our solutions can be customized according to specific needs to provide the most suitable data analysis tools.</p>
             </div>
         </div>
     </div>
@@ -590,28 +344,28 @@
     <div id="modal2" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('modal2')">&times;</span>
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Portfolio Item" class="modal-image">
-            <h2 class="modal-title">智能家居系統</h2>
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Data Transmission" class="modal-image">
+            <h2 class="modal-title">Data Transmission</h2>
             <div class="modal-tags">
-                <span class="tag">物聯網</span>
-                <span class="tag">消費電子</span>
-                <span class="tag">智能家居</span>
+                <span class="tag">IoT</span>
+                <span class="tag">Consumer Electronics</span>
+                <span class="tag">Smart Home</span>
             </div>
             <div class="modal-description">
-                <p>我們的智能家居系統是一個全面的家庭自動化解決方案，旨在提供更安全、更舒適和更節能的生活環境。該系統整合了先進的物聯網技術，能夠連接和控制家中的各種設備，從照明和溫控到安全和娛樂系統。</p>
+                <p>Our smart home system is a comprehensive home automation solution designed to provide a safer, more comfortable, and more energy-efficient living environment. The system integrates advanced IoT technology to connect and control various devices in the home, from lighting and temperature control to security and entertainment systems.</p>
                 
-                <p>主要功能包括：</p>
+                <p>Key features include:</p>
                 <ul>
-                    <li><strong>中央控制：</strong>通過單一應用程式或語音助手控制家中所有智能設備，實現真正的一體化體驗。</li>
-                    <li><strong>自動化場景：</strong>設置自定義場景，如"早晨模式"或"離家模式"，一鍵激活多個設備的預設狀態。</li>
-                    <li><strong>能源管理：</strong>監控和優化家庭能源使用，提供節能建議，降低能源成本。</li>
-                    <li><strong>安全監控：</strong>整合智能門鎖、攝像頭和感應器，提供全方位的家庭安全保障。</li>
-                    <li><strong>人工智能學習：</strong>系統會學習用戶的習慣和偏好，自動調整設置以提供更個性化的體驗。</li>
+                    <li><strong>Central Control:</strong> Control all smart devices in the home through a single application or voice assistant, achieving a truly integrated experience.</li>
+                    <li><strong>Automated Scenes:</strong> Set up custom scenes, such as "Morning Mode" or "Away Mode," to activate preset states for multiple devices with one click.</li>
+                    <li><strong>Energy Management:</strong> Monitor and optimize home energy use, provide energy-saving suggestions, and reduce energy costs.</li>
+                    <li><strong>Security Monitoring:</strong> Integrate smart locks, cameras, and sensors to provide comprehensive home security protection.</li>
+                    <li><strong>AI Learning:</strong> The system learns user habits and preferences, automatically adjusting settings to provide a more personalized experience.</li>
                 </ul>
                 
-                <p>我們的智能家居系統採用模塊化設計，用戶可以根據自己的需求和預算選擇不同的組件。系統支持市場上大多數主流智能家居設備，並且我們的團隊會定期更新兼容性列表，確保用戶能夠享受到最新的智能家居技術。</p>
+                <p>Our smart home system adopts a modular design, allowing users to choose different components based on their needs and budget. The system supports most mainstream smart home devices on the market, and our team regularly updates the compatibility list to ensure users can enjoy the latest smart home technology.</p>
                 
-                <p>無論是新建住宅還是現有住宅，我們的系統都能夠輕鬆集成，為您的家庭帶來智能化的生活體驗。</p>
+                <p>Whether for new or existing residences, our system can be easily integrated to bring an intelligent living experience to your home.</p>
             </div>
         </div>
     </div>
@@ -619,107 +373,113 @@
     <div id="modal3" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('modal3')">&times;</span>
-            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Portfolio Item" class="modal-image">
-            <h2 class="modal-title">雲端協作平台</h2>
+            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Physical Intelligence" class="modal-image">
+            <h2 class="modal-title">Physical Intelligence</h2>
             <div class="modal-tags">
-                <span class="tag">雲端服務</span>
-                <span class="tag">企業服務</span>
-                <span class="tag">協作工具</span>
+                <span class="tag">Cloud Services</span>
+                <span class="tag">Enterprise Solutions</span>
+                <span class="tag">Collaboration Tools</span>
             </div>
             <div class="modal-description">
-                <p>我們的雲端協作平台是為現代企業設計的全方位協作解決方案，旨在提高團隊生產力和工作效率。該平台整合了文檔管理、項目管理、溝通工具和工作流程自動化等功能，為遠程和混合工作模式提供強大支持。</p>
+                <p>Our cloud collaboration platform is a comprehensive collaboration solution designed for modern enterprises, aimed at improving team productivity and work efficiency. The platform integrates document management, project management, communication tools, and workflow automation functions to provide strong support for remote and hybrid work models.</p>
                 
-                <p>主要功能包括：</p>
+                <p>Key features include:</p>
                 <ul>
-                    <li><strong>實時文檔協作：</strong>多人同時編輯文檔，無需擔心版本衝突，支持各種文件格式。</li>
-                    <li><strong>項目管理：</strong>直觀的項目看板和甘特圖，幫助團隊跟踪任務進度和截止日期。</li>
-                    <li><strong>團隊溝通：</strong>整合即時消息、視頻會議和討論區，確保團隊成員保持聯繫。</li>
-                    <li><strong>工作流程自動化：</strong>自定義工作流程和自動化規則，減少重複性工作。</li>
-                    <li><strong>安全與合規：</strong>企業級安全措施，包括加密、訪問控制和合規性報告。</li>
+                    <li><strong>Real-time Document Collaboration:</strong> Multiple people can edit documents simultaneously without worrying about version conflicts, supporting various file formats.</li>
+                    <li><strong>Project Management:</strong> Intuitive project boards and Gantt charts help teams track task progress and deadlines.</li>
+                    <li><strong>Team Communication:</strong> Integrate instant messaging, video conferencing, and discussion forums to ensure team members stay connected.</li>
+                    <li><strong>Workflow Automation:</strong> Custom workflows and automation rules reduce repetitive work.</li>
+                    <li><strong>Security and Compliance:</strong> Enterprise-grade security measures, including encryption, access control, and compliance reporting.</li>
                 </ul>
                 
-                <p>我們的平台採用模塊化設計，企業可以根據自己的需求選擇不同的功能模塊。平台支持與常用企業工具的集成，如CRM系統、ERP系統和人力資源管理系統，實現數據的無縫流動。</p>
+                <p>Our platform adopts a modular design, allowing enterprises to choose different functional modules based on their needs. The platform supports integration with common enterprise tools, such as CRM systems, ERP systems, and human resource management systems, enabling seamless data flow.</p>
                 
-                <p>無論是小型團隊還是大型企業，我們的雲端協作平台都能夠提供靈活、安全和高效的協作環境，幫助企業適應不斷變化的工作方式，提高競爭力。</p>
+                <p>Whether for small teams or large enterprises, our cloud collaboration platform can provide a flexible, secure, and efficient collaboration environment, helping enterprises adapt to changing work methods and improve competitiveness.</p>
             </div>
         </div>
     </div>
-    
-    <section id="team" class="team">
-        <div class="container">
-            <h2>我們的團隊</h2>
-            <p>我們的團隊由經驗豐富的專業人士組成，他們在各自領域擁有深厚的專業知識和豐富的經驗。</p>
-            
-            <div class="team-grid">
-                <div class="team-member">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Team Member" class="team-image">
-                    <h3>張志明</h3>
-                    <div class="team-title">執行長</div>
-                    <p class="team-bio">擁有15年科技行業經驗，曾在多家知名科技公司擔任高管職位。專注於企業策略和業務發展。</p>
-                </div>
-                
-                <div class="team-member">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Team Member" class="team-image">
-                    <h3>林美玲</h3>
-                    <div class="team-title">技術總監</div>
-                    <p class="team-bio">擁有12年軟體開發經驗，專精於人工智能和機器學習技術。曾領導多個大型技術項目的開發。</p>
-                </div>
-                
-                <div class="team-member">
-                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Team Member" class="team-image">
-                    <h3>王建國</h3>
-                    <div class="team-title">投資總監</div>
-                    <p class="team-bio">擁有10年風險投資經驗，專注於科技創新領域。曾成功投資多家現已成為行業領導者的初創公司。</p>
-                </div>
-                
-                <div class="team-member">
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Team Member" class="team-image">
-                    <h3>陳雅婷</h3>
-                    <div class="team-title">市場總監</div>
-                    <p class="team-bio">擁有8年市場營銷經驗，專長於品牌建設和數位營銷。曾成功策劃多個獲獎的市場活動。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>聯絡我們</h2>
-            <p>無論您是尋求合作、投資機會，還是想了解更多關於我們的服務，都歡迎與我們聯繫。</p>
-            
-            <div class="contact-email">
-                <a href="mailto:contact@123infinity.com">發送郵件給我們</a>
-            </div>
-        </div>
-    </section>
-    
-    <footer>
-        <div class="container">
-            <div class="footer-links">
-                <a href="#">首頁</a>
-                <a href="#services">服務</a>
-                <a href="#portfolio">產品組合</a>
-                <a href="#team">團隊</a>
-                <a href="#contact">聯絡我們</a>
-            </div>
-            
-            <p class="copyright">© 2025 一二三無限公司. 版權所有.</p>
-        </div>
-    </footer>
-    
+
     <script>
-        // 彈窗功能
+        // Typewriter animation auto-start
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加zoom類到typewriter-container
+            setTimeout(function() {
+                document.getElementById('typewriterContainer').classList.add('zoom');
+            }, 4.5); // 在tagline完成後添加zoom效果
+            
+            // Fade out intro animation after 7.5 seconds (after zoom effect)
+            setTimeout(function() {
+                document.querySelector('.intro-animation').classList.add('fade-out');
+                setTimeout(function() {
+                    document.querySelector('.intro-animation').style.display = 'none';
+                }, 1000);
+            }, 7500);
+            
+            // 為主頁面標題添加浮現效果
+            const titleText = "Where Core Partnerships Fuel Ecosystem Growth";
+            const titleWords = titleText.split(' ');
+            let titleHTML = '';
+            
+            titleWords.forEach((word, index) => {
+                titleHTML += `<span class="hero-title-word" style="animation-delay: ${0.1 + index * 0.1}s">${word}</span> `;
+            });
+            
+            document.getElementById('heroTitle').innerHTML = titleHTML;
+            
+            // 為主頁面描述添加浮現效果
+            const descriptionText = "Investing in ventures where we bring differentiated value";
+            let descriptionHTML = '';
+            
+            for (let i = 0; i < descriptionText.length; i++) {
+                const char = descriptionText[i] === ' ' ? '&nbsp;' : descriptionText[i];
+                descriptionHTML += `<span class="hero-description-char" style="animation-delay: ${1.0 + i * 0.01}s">${char}</span>`;
+            }
+            
+            document.getElementById('heroDescription').innerHTML = descriptionHTML;
+        });
+        
+        // Reveal Animation on Scroll
+        window.addEventListener('scroll', reveal);
+        
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+            
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var revealTop = reveals[i].getBoundingClientRect().top;
+                var revealPoint = 150;
+                
+                if (revealTop < windowHeight - revealPoint) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        
+        // Call reveal on load to check for elements already in view
+        window.addEventListener('load', reveal);
+        
+        // Sticky Header
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Modal functionality
         function openModal(modalId) {
             document.getElementById(modalId).style.display = "block";
-            document.body.style.overflow = "hidden"; // 防止背景滾動
+            document.body.style.overflow = "hidden"; // Prevent background scrolling
         }
         
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = "none";
-            document.body.style.overflow = "auto"; // 恢復背景滾動
+            document.body.style.overflow = "auto"; // Restore background scrolling
         }
         
-        // 點擊彈窗外部關閉彈窗
+        // Close modal when clicking outside
         window.onclick = function(event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = "none";
@@ -727,7 +487,7 @@
             }
         }
         
-        // 按ESC鍵關閉彈窗
+        // Close modal with ESC key
         document.addEventListener('keydown', function(event) {
             if (event.key === "Escape") {
                 var modals = document.getElementsByClassName('modal');
